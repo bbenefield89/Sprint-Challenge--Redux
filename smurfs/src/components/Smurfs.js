@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Smurf from './Smurf';
+
 import { getSmurfs } from '../actions/actions';
 
-class Smurfs extends Component {
+class Smurfs extends Component {  
   componentDidMount() {
     this.props.getSmurfs();
   }
   
   render() {
-    console.log('Smurfs Props: ', this.props);
-
     if (this.props.smurfData.fetchingSmurf) {
       return (
         <h1>Loading smurf data</h1>
@@ -20,13 +20,9 @@ class Smurfs extends Component {
       return (
         <div>
           {
-            this.props.smurfData.smurfs.map(smurf => {
+            this.props.smurfData.smurfs.map(({ id, name, age, height }) => {
               return (
-                <ul key={ smurf.id }>
-                  <li>{ smurf.name }</li>
-                  <li>{ smurf.age }</li>
-                  <li>{ smurf.height }</li>
-                </ul>
+                <Smurf key={ id } id={ id } name={ name } age={ age } height={ height } />
               )
             })
           }
